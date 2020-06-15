@@ -15,7 +15,10 @@ ResponseLike = Union[Response, BodyPart]
 
 
 def parse_xml(response: ResponseLike) -> etree.Element:
-    root = etree.fromstring(response.content.decode(DEFAULT_ENCODING), parser=etree.XMLParser(recover=True))
+    try:
+        root = etree.fromstring(response.content.decode(DEFAULT_ENCODING), parser=etree.XMLParser(recover=True))
+    except ValueError:
+        root = etree.fromstring(response.content, parser=etree.XMLParser(recover=True))
 
     if root is None:
         raise RetsResponseError(response.content, response.headers)
