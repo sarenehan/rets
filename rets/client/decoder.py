@@ -92,6 +92,8 @@ def _decode_time(value: str, include_tz: bool) -> time:
 
 
 def _decode_date(value: str, include_tz: bool) -> datetime:
+    if value is None:
+        return None
     try:
         decoded = datetime.strptime(value, '%Y-%m-%d')
         return decoded
