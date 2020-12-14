@@ -56,7 +56,7 @@ def _get_decoder(data_type: str, interpretation: str, include_tz: bool = False):
     if interpretation == _LOOKUP_TYPE:
         return str
     elif interpretation in _LOOKUP_MULTI_TYPES:
-        return lambda value: value.split(',')
+        return lambda value: value.split(',') if value is not None else None
 
     if data_type in _TIMEZONE_AWARE_DECODERS:
         return partial(_TIMEZONE_AWARE_DECODERS[data_type], include_tz=include_tz)
