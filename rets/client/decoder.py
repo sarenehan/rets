@@ -27,7 +27,7 @@ class RecordDecoder:
         decoders = self._build_decoders(tuple(rows[0].keys()))
 
         def decode_field(field: str, value: str) -> Any:
-            if value == '' or value is None:
+            if value == '' or value is None or (field not in decoders):
                 return None
             return decoders[field](value)
 
