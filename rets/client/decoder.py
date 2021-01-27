@@ -78,7 +78,7 @@ def _decode_datetime(value: str, include_tz: bool) -> datetime:
         elif re.match(r'^\d{4}-\d{2}-\d{2}$', value):
             value = '%sT00:00:00' % value[0:10]
 
-        decoded = udatetime.from_string(value)
+        decoded = udatetime.from_string(value.replace(' ', 'T'))
     except:
         decoded = datetime(year=1970, day=1, month=1)
     if not include_tz:
